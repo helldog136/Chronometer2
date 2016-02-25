@@ -10,11 +10,6 @@ import java.util.ArrayList;
 public class ChronometerMain {
 
     private static long offset;
-
-    public static void setLapsTime(long lapsTime) {
-        ChronometerMain.lapsTime = lapsTime;
-    }
-
     private static long pauseTime;
     private static long lapsTime;
     private static ClockState currentState;
@@ -23,6 +18,10 @@ public class ChronometerMain {
 
     public static JLabel getTimeLabel() {
         return timeLabel;
+    }
+
+    public static void setLapsTime(long lapsTime) {
+        ChronometerMain.lapsTime = lapsTime;
     }
 
     public static JLabel getStateLabel() {
