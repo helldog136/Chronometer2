@@ -26,7 +26,7 @@ public class LapsState implements ClockState
 
     @Override
     public String getDisplayString(ChronoContext context) {
-        return new Long(context.lapsTime / 1000).toString();
+        return new Long(context.getLapsTime() / 1000).toString();
     }
 
     @Override

@@ -11,26 +11,26 @@ public class RunningState implements ClockState
 
     @Override
     public void startStop(ChronoContext context) {
-        context.pauseTime = System.currentTimeMillis() - context.offset;
+        context.setPauseTime(System.currentTimeMillis() - context.getOffset());
         context.transition(PauseState.instance());
 
     }
 
     @Override
     public void laps(ChronoContext context) {
-        context.lapsTime = System.currentTimeMillis() - context.offset;
+        context.setLapsTime(System.currentTimeMillis() - context.getOffset());
         context.transition(LapsState.instance());
     }
 
     @Override
     public void reset(ChronoContext context) {
-        context.offset = System.currentTimeMillis();
+        context.setOffset(System.currentTimeMillis());
         context.transition(this);
     }
 
     @Override
     public String getDisplayString(ChronoContext context) {
-        return new Long((System.currentTimeMillis() - context.offset)/1000).toString();
+        return new Long((System.currentTimeMillis() - context.getOffset())/1000).toString();
     }
 
     @Override

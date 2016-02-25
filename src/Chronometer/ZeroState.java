@@ -10,7 +10,7 @@ public final class ZeroState implements ClockState
 
     @Override
     public void startStop(ChronoContext context) {
-        context.offset = System.currentTimeMillis();
+        context.setOffset(System.currentTimeMillis());
         context.transition(RunningState.instance());
     }
 

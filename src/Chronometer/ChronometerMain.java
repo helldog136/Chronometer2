@@ -2,36 +2,46 @@ package Chronometer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class ChronometerMain implements ActionListener {
-    
-    private JButton b1, b2, b3;
-    private JLabel myText1;
-    private JLabel myText2;
+public class ChronometerMain {
+
+    private JButton startStopButton, lapsButton, resetButton;
+    private JLabel timeLabel;
+    private JLabel stateLabel;
     
     private ChronoContext myContext;
 
     public ChronometerMain() {
-        Init();
+        init();
     }
     
     // it is considered good programming practice that the actual
     // user interface code is not put in the class Constructor itself 
-    private void Init() {
-        b1 = new JButton("start/stop");
-        b1.addActionListener(this);
-        b2 = new JButton("laps");
-        b2.addActionListener(this);
-        b3 = new JButton("reset");
-        b3.addActionListener(this);
-        myText1 = new JLabel();
-        myText2 = new JLabel();
+    private void init() {
+        startStopButton = new JButton("start/stop");
+        startStopButton.addActionListener(e -> {
+            myContext.getCurrentState().startStop(myContext);
+            timeLabel.setText(myContext.getDisplayText());
+            stateLabel.setText(myContext.getStateText());
+        });
+        lapsButton = new JButton("laps");
+        lapsButton.addActionListener(e -> {
+            myContext.getCurrentState().laps(myContext);
+            timeLabel.setText(myContext.getDisplayText());
+            stateLabel.setText(myContext.getStateText());
+        });
+        resetButton = new JButton("reset");
+        resetButton.addActionListener(e -> {
+            myContext.getCurrentState().reset(myContext);
+            timeLabel.setText(myContext.getDisplayText());
+            stateLabel.setText(myContext.getStateText());
+        });
+        timeLabel = new JLabel();
+        stateLabel = new JLabel();
 
-        myContext = new ChronoContext(myText1);
-        myText1.setText(myContext.getDisplayText());
-        myText2.setText(myContext.getStateText());
+        myContext = new ChronoContext(timeLabel);
+        timeLabel.setText(myContext.getDisplayText());
+        stateLabel.setText(myContext.getStateText());
         
 
         JFrame myFrame = new JFrame("Chronometer");
@@ -39,36 +49,21 @@ public class ChronometerMain implements ActionListener {
         // grid layout with 2 rows and 3 columns
         myContent.setLayout(new GridLayout(2,3));
         // filling first row of grid (3 columns) with text information
-        myContent.add(myText1,0);
-        myContent.add(myText2,1);
+        myContent.add(timeLabel,0);
+        myContent.add(stateLabel,1);
         myContent.add(new JLabel());    // Don't ask…
         // filling second row of grid (3 columns) with buttons
-        myContent.add(b1);
-        myContent.add(b2);
-        myContent.add(b3);
+        myContent.add(startStopButton);
+        myContent.add(lapsButton);
+        myContent.add(resetButton);
         myFrame.pack();
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.setVisible(true);
         myContext.run();
     }
-    
-    public void actionPerformed(ActionEvent e) {
-        if((JButton)e.getSource()==b1) {
-            myContext.buttonpushed(ButtonType.LEFT);
-        }
-        else if((JButton)e.getSource()==b2){
-            myContext.buttonpushed(ButtonType.UP);
-         }
-        else if((JButton)e.getSource()==b3){
-        	myContext.buttonpushed(ButtonType.RIGHT);
-        }
-        
-        myText1.setText(myContext.getDisplayText());
-        myText2.setText(myContext.getStateText());
-    }
-    
+
     public static void main(String[] args) {
         ChronometerMain myClock = new ChronometerMain();
     }
-   
+
 }
