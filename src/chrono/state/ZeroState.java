@@ -1,4 +1,6 @@
-package chrono;
+package chrono.state;
+
+import chrono.ChronometerMain;
 
 import static java.lang.System.currentTimeMillis;
 
@@ -12,7 +14,7 @@ public class ZeroState extends ClockState {
 
     @Override
     public void startStop() {
-        context.setOffset(currentTimeMillis());
+        ChronometerMain.setOffset(currentTimeMillis());
         ChronometerMain.setCurrentState(RunningState.instance());
     }
 

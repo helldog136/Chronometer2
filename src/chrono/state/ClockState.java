@@ -1,4 +1,4 @@
-package chrono;
+package chrono.state;
 
 public abstract class ClockState {
     public abstract void startStop(); // button 1 pressed

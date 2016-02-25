@@ -1,4 +1,6 @@
-package chrono;
+package chrono.state;
+
+import chrono.ChronometerMain;
 
 import static java.lang.System.currentTimeMillis;
 
@@ -12,7 +14,7 @@ public class PauseState extends WaitingClockState {
 
     @Override
     public void startStop() {
-        context.setOffset(currentTimeMillis() - context.getPauseTime());
+        ChronometerMain.setOffset(currentTimeMillis() - ChronometerMain.getPauseTime());
         ChronometerMain.setCurrentState(RunningState.instance());
     }
 
@@ -23,7 +25,7 @@ public class PauseState extends WaitingClockState {
 
     @Override
     public String getDisplayString() {
-        return new Long(context.getPauseTime() / 1000).toString();
+        return Long.toString(ChronometerMain.getPauseTime() / 1000);
     }
 
     @Override

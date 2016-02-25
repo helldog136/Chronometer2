@@ -1,5 +1,7 @@
-package chrono;
+package chrono.state;
 
+
+import chrono.ChronometerMain;
 
 public class LapsState extends WaitingClockState {
     private static LapsState instance = null;
@@ -21,7 +23,7 @@ public class LapsState extends WaitingClockState {
 
     @Override
     public String getDisplayString() {
-        return new Long(context.getLapsTime() / 1000).toString();
+        return Long.toString(ChronometerMain.getLapsTime() / 1000);
     }
 
     @Override

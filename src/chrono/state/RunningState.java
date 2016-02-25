@@ -1,5 +1,7 @@
-package chrono;
+package chrono.state;
 
+
+import chrono.ChronometerMain;
 
 import static java.lang.System.currentTimeMillis;
 
@@ -13,26 +15,26 @@ public class RunningState extends ClockState {
 
     @Override
     public void startStop() {
-        context.setPauseTime(currentTimeMillis() - context.getOffset());
+        ChronometerMain.setPauseTime(currentTimeMillis() - ChronometerMain.getOffset());
         ChronometerMain.setCurrentState(PauseState.instance());
 
     }
 
     @Override
     public void laps() {
-        context.setLapsTime(currentTimeMillis() - context.getOffset());
+        ChronometerMain.setLapsTime(currentTimeMillis() - ChronometerMain.getOffset());
         ChronometerMain.setCurrentState(LapsState.instance());
     }
 
     @Override
     public void reset() {
-        context.setOffset(currentTimeMillis());
+        ChronometerMain.setOffset(currentTimeMillis());
         ChronometerMain.setCurrentState(this);
     }
 
     @Override
     public String getDisplayString() {
-        return new Long((currentTimeMillis() - context.getOffset()) / 1000).toString();
+        return Long.toString((currentTimeMillis() - ChronometerMain.getOffset()) / 1000);
     }
 
     @Override
