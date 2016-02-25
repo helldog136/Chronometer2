@@ -1,4 +1,4 @@
-package Chronometer;
+package chrono;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,30 +21,26 @@ public class ChronometerMain {
         startStopButton = new JButton("start/stop");
         startStopButton.addActionListener(e -> {
             myContext.getCurrentState().startStop(myContext);
-            timeLabel.setText(myContext.getDisplayText());
-            stateLabel.setText(myContext.getStateText());
+            updateUIText();
         });
         lapsButton = new JButton("laps");
         lapsButton.addActionListener(e -> {
             myContext.getCurrentState().laps(myContext);
-            timeLabel.setText(myContext.getDisplayText());
-            stateLabel.setText(myContext.getStateText());
+            updateUIText();
         });
         resetButton = new JButton("reset");
         resetButton.addActionListener(e -> {
             myContext.getCurrentState().reset(myContext);
-            timeLabel.setText(myContext.getDisplayText());
-            stateLabel.setText(myContext.getStateText());
+            updateUIText();
         });
         timeLabel = new JLabel();
         stateLabel = new JLabel();
 
         myContext = new ChronoContext(timeLabel);
-        timeLabel.setText(myContext.getDisplayText());
-        stateLabel.setText(myContext.getStateText());
+        updateUIText();
         
 
-        JFrame myFrame = new JFrame("Chronometer");
+        JFrame myFrame = new JFrame("chrono");
         Container myContent = myFrame.getContentPane();
         // grid layout with 2 rows and 3 columns
         myContent.setLayout(new GridLayout(2,3));
@@ -60,6 +56,11 @@ public class ChronometerMain {
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.setVisible(true);
         myContext.run();
+    }
+
+    private void updateUIText() {
+        timeLabel.setText(myContext.getDisplayText());
+        stateLabel.setText(myContext.getStateText());
     }
 
     public static void main(String[] args) {

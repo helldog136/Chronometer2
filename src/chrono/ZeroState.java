@@ -1,16 +1,18 @@
-package Chronometer;
+package chrono;
 
-public final class ZeroState implements ClockState
-{
+import static java.lang.System.currentTimeMillis;
+
+public class ZeroState extends ClockState {
     private static ZeroState instance = null;
+
     public static ZeroState instance() {
-        if(instance == null) instance = new ZeroState();
+        if (instance == null) instance = new ZeroState();
         return instance;
     }
 
     @Override
     public void startStop(ChronoContext context) {
-        context.setOffset(System.currentTimeMillis());
+        context.setOffset(currentTimeMillis());
         context.transition(RunningState.instance());
     }
 

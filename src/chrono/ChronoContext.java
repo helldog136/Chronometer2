@@ -1,4 +1,4 @@
-package Chronometer;
+package chrono;
 
 import javax.swing.*;
 

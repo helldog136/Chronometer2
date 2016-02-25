@@ -1,16 +1,18 @@
-package Chronometer;
+package chrono;
 
-public class PauseState implements ClockState
-{
+import static java.lang.System.currentTimeMillis;
+
+public class PauseState extends ClockState {
     private static PauseState instance = null;
+
     public static PauseState instance() {
-        if(instance == null) instance = new PauseState();
+        if (instance == null) instance = new PauseState();
         return instance;
     }
 
     @Override
     public void startStop(ChronoContext context) {
-        context.setOffset(System.currentTimeMillis() - context.getPauseTime());
+        context.setOffset(currentTimeMillis() - context.getPauseTime());
         context.transition(RunningState.instance());
     }
 
@@ -26,7 +28,7 @@ public class PauseState implements ClockState
 
     @Override
     public String getDisplayString(ChronoContext context) {
-        return new Long(context.getPauseTime() /1000).toString();
+        return new Long(context.getPauseTime() / 1000).toString();
     }
 
     @Override

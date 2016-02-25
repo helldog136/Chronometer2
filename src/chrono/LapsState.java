@@ -1,11 +1,11 @@
-package Chronometer;
+package chrono;
 
 
-public class LapsState implements ClockState
-{
+public class LapsState extends ClockState {
     private static LapsState instance = null;
+
     public static LapsState instance() {
-        if(instance == null) instance = new LapsState();
+        if (instance == null) instance = new LapsState();
         return instance;
     }
 
