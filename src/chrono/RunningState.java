@@ -12,26 +12,26 @@ public class RunningState extends ClockState {
     }
 
     @Override
-    public void startStop(ChronoContext context) {
+    public void startStop() {
         context.setPauseTime(currentTimeMillis() - context.getOffset());
-        context.transition(PauseState.instance());
+        ChronometerMain.setCurrentState(PauseState.instance());
 
     }
 
     @Override
-    public void laps(ChronoContext context) {
+    public void laps() {
         context.setLapsTime(currentTimeMillis() - context.getOffset());
-        context.transition(LapsState.instance());
+        ChronometerMain.setCurrentState(LapsState.instance());
     }
 
     @Override
-    public void reset(ChronoContext context) {
+    public void reset() {
         context.setOffset(currentTimeMillis());
-        context.transition(this);
+        ChronometerMain.setCurrentState(this);
     }
 
     @Override
-    public String getDisplayString(ChronoContext context) {
+    public String getDisplayString() {
         return new Long((currentTimeMillis() - context.getOffset()) / 1000).toString();
     }
 

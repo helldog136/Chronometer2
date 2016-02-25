@@ -5,38 +5,68 @@ import java.awt.*;
 
 public class ChronometerMain {
 
+    static long offset;
+    static long pauseTime;
+    static long lapsTime;
+    private static ClockState currentState;
     private JButton startStopButton, lapsButton, resetButton;
-    private JLabel timeLabel;
-    private JLabel stateLabel;
-    
-    private ChronoContext myContext;
+    private static JLabel timeLabel;
+    private static JLabel stateLabel;
+
 
     public ChronometerMain() {
         init();
     }
-    
+
+    public static void run() {
+  	  while (true) {
+		  try { Thread.sleep(1000); }
+	      catch (InterruptedException e) {
+	          e.printStackTrace();
+	      }
+	      timeLabel.setText(getCurrentState().getDisplayString());
+	      }
+    }
+
+    public static ClockState getCurrentState() {
+        return currentState;
+    }
+
+    public static void setCurrentState(ClockState currentState) {
+        ChronometerMain.currentState = currentState;
+    }
+
+    public static void setOffset(long offset) {
+        ChronometerMain.offset = offset;
+    }
+
+    static void initChrono() {
+        setCurrentState(ZeroState.instance());
+        setOffset(System.currentTimeMillis());
+    }
+
     // it is considered good programming practice that the actual
     // user interface code is not put in the class Constructor itself 
     private void init() {
         startStopButton = new JButton("start/stop");
         startStopButton.addActionListener(e -> {
-            myContext.getCurrentState().startStop(myContext);
+            getCurrentState().startStop();
             updateUIText();
         });
         lapsButton = new JButton("laps");
         lapsButton.addActionListener(e -> {
-            myContext.getCurrentState().laps(myContext);
+            getCurrentState().laps();
             updateUIText();
         });
         resetButton = new JButton("reset");
         resetButton.addActionListener(e -> {
-            myContext.getCurrentState().reset(myContext);
+            getCurrentState().reset();
             updateUIText();
         });
         timeLabel = new JLabel();
         stateLabel = new JLabel();
 
-        myContext = new ChronoContext(timeLabel);
+        initChrono();
         updateUIText();
         
 
@@ -55,12 +85,12 @@ public class ChronometerMain {
         myFrame.pack();
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.setVisible(true);
-        myContext.run();
+        run();
     }
 
     private void updateUIText() {
-        timeLabel.setText(myContext.getDisplayText());
-        stateLabel.setText(myContext.getStateText());
+        timeLabel.setText(getCurrentState().getDisplayString());
+        stateLabel.setText(getCurrentState().getStateString());
     }
 
     public static void main(String[] args) {

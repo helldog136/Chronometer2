@@ -1,7 +1,7 @@
 package chrono;
 
 
-public class LapsState extends ClockState {
+public class LapsState extends WaitingClockState {
     private static LapsState instance = null;
 
     public static LapsState instance() {
@@ -10,22 +10,17 @@ public class LapsState extends ClockState {
     }
 
     @Override
-    public void startStop(ChronoContext context) {
-        context.transition(RunningState.instance());
+    public void startStop() {
+        ChronometerMain.setCurrentState(RunningState.instance());
     }
 
     @Override
-    public void laps(ChronoContext context) {
-        context.transition(RunningState.instance());
+    public void laps() {
+        ChronometerMain.setCurrentState(RunningState.instance());
     }
 
     @Override
-    public void reset(ChronoContext context) {
-        context.transition(ZeroState.instance());
-    }
-
-    @Override
-    public String getDisplayString(ChronoContext context) {
+    public String getDisplayString() {
         return new Long(context.getLapsTime() / 1000).toString();
     }
 

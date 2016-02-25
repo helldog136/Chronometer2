@@ -11,23 +11,23 @@ public class ZeroState extends ClockState {
     }
 
     @Override
-    public void startStop(ChronoContext context) {
+    public void startStop() {
         context.setOffset(currentTimeMillis());
-        context.transition(RunningState.instance());
+        ChronometerMain.setCurrentState(RunningState.instance());
     }
 
     @Override
-    public void laps(ChronoContext context) {
+    public void laps() {
         // Do nothing
     }
 
     @Override
-    public void reset(ChronoContext context) {
+    public void reset() {
         // Do nothing
     }
 
     @Override
-    public String getDisplayString(ChronoContext context) {
+    public String getDisplayString() {
         return "0";
     }
 

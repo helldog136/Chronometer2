@@ -2,7 +2,7 @@ package chrono;
 
 import static java.lang.System.currentTimeMillis;
 
-public class PauseState extends ClockState {
+public class PauseState extends WaitingClockState {
     private static PauseState instance = null;
 
     public static PauseState instance() {
@@ -11,23 +11,18 @@ public class PauseState extends ClockState {
     }
 
     @Override
-    public void startStop(ChronoContext context) {
+    public void startStop() {
         context.setOffset(currentTimeMillis() - context.getPauseTime());
-        context.transition(RunningState.instance());
+        ChronometerMain.setCurrentState(RunningState.instance());
     }
 
     @Override
-    public void laps(ChronoContext context) {
+    public void laps() {
         // Do nothing
     }
 
     @Override
-    public void reset(ChronoContext context) {
-        context.transition(ZeroState.instance());
-    }
-
-    @Override
-    public String getDisplayString(ChronoContext context) {
+    public String getDisplayString() {
         return new Long(context.getPauseTime() / 1000).toString();
     }
 
