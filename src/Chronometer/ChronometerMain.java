@@ -1,7 +1,9 @@
-package StatePattern;
+package Chronometer;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ChronometerMain implements ActionListener {
     
@@ -18,11 +20,11 @@ public class ChronometerMain implements ActionListener {
     // it is considered good programming practice that the actual
     // user interface code is not put in the class Constructor itself 
     private void Init() {
-        b1 = new JButton("left");
+        b1 = new JButton("start/stop");
         b1.addActionListener(this);
-        b2 = new JButton("up");
+        b2 = new JButton("laps");
         b2.addActionListener(this);
-        b3 = new JButton("right");
+        b3 = new JButton("reset");
         b3.addActionListener(this);
         myText1 = new JLabel();
         myText2 = new JLabel();
@@ -52,13 +54,13 @@ public class ChronometerMain implements ActionListener {
     
     public void actionPerformed(ActionEvent e) {
         if((JButton)e.getSource()==b1) {
-            myContext.buttonpushed(ButtonType.left);
+            myContext.buttonpushed(ButtonType.LEFT);
         }
         else if((JButton)e.getSource()==b2){
-            myContext.buttonpushed(ButtonType.up);
+            myContext.buttonpushed(ButtonType.UP);
          }
         else if((JButton)e.getSource()==b3){
-        	myContext.buttonpushed(ButtonType.right);
+        	myContext.buttonpushed(ButtonType.RIGHT);
         }
         
         myText1.setText(myContext.getDisplayText());

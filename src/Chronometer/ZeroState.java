@@ -1,26 +1,26 @@
-package StatePattern;
+package Chronometer;
 
 public final class ZeroState implements ClockState
 {
     private static ZeroState instance = null;
-    public static ZeroState Instance() {
+    public static ZeroState instance() {
         if(instance == null) instance = new ZeroState();
         return instance;
     }
 
     @Override
-    public void left(ChronoContext context) {
+    public void startStop(ChronoContext context) {
         context.offset = System.currentTimeMillis();
-        context.transition(RunningState.Instance());
+        context.transition(RunningState.instance());
     }
 
     @Override
-    public void middle(ChronoContext context) {
+    public void laps(ChronoContext context) {
         // Do nothing
     }
 
     @Override
-    public void right(ChronoContext context) {
+    public void reset(ChronoContext context) {
         // Do nothing
     }
 

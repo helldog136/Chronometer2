@@ -1,4 +1,4 @@
-package StatePattern;
+package Chronometer;
 
 import javax.swing.*;
 
@@ -15,7 +15,7 @@ class ChronoContext {
     // In this sense, ChronometerMain acts as some kind of Observer of ChronoContext.
 
     public ChronoContext(JLabel d) {
-        currentState = ZeroState.Instance();
+        currentState = ZeroState.instance();
         offset = System.currentTimeMillis();
         display = d;
     }
@@ -32,11 +32,11 @@ class ChronoContext {
     
     public void buttonpushed(ButtonType b) {
     	switch (b) {
-    	case left : currentState.left(this);
+    	case LEFT: currentState.startStop(this);
     		break;
-    	case up : currentState.middle(this);
+    	case UP: currentState.laps(this);
     		break;
-    	case right : currentState.right(this);
+    	case RIGHT: currentState.reset(this);
     		break;
     	default : System.out.println("Button not recognised");
     		break;

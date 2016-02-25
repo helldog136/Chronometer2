@@ -1,27 +1,27 @@
-package StatePattern;
+package Chronometer;
 
 public class PauseState implements ClockState
 {
     private static PauseState instance = null;
-    public static PauseState Instance() {
+    public static PauseState instance() {
         if(instance == null) instance = new PauseState();
         return instance;
     }
 
     @Override
-    public void left(ChronoContext context) {
+    public void startStop(ChronoContext context) {
         context.offset = System.currentTimeMillis() - context.pauseTime;
-        context.transition(RunningState.Instance());
+        context.transition(RunningState.instance());
     }
 
     @Override
-    public void middle(ChronoContext context) {
+    public void laps(ChronoContext context) {
         // Do nothing
     }
 
     @Override
-    public void right(ChronoContext context) {
-        context.transition(ZeroState.Instance());
+    public void reset(ChronoContext context) {
+        context.transition(ZeroState.instance());
     }
 
     @Override

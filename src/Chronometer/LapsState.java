@@ -1,27 +1,27 @@
-package StatePattern;
+package Chronometer;
 
 
 public class LapsState implements ClockState
 {
     private static LapsState instance = null;
-    public static LapsState Instance() {
+    public static LapsState instance() {
         if(instance == null) instance = new LapsState();
         return instance;
     }
 
     @Override
-    public void left(ChronoContext context) {
-        context.transition(RunningState.Instance());
+    public void startStop(ChronoContext context) {
+        context.transition(RunningState.instance());
     }
 
     @Override
-    public void middle(ChronoContext context) {
-        context.transition(RunningState.Instance());
+    public void laps(ChronoContext context) {
+        context.transition(RunningState.instance());
     }
 
     @Override
-    public void right(ChronoContext context) {
-        context.transition(ZeroState.Instance());
+    public void reset(ChronoContext context) {
+        context.transition(ZeroState.instance());
     }
 
     @Override
