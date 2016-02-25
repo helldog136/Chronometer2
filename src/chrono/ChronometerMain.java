@@ -65,7 +65,7 @@ public class ChronometerMain {
         ChronometerMain.offset = offset;
     }
 
-    static void initChrono() {
+    private static void initChrono() {
         setCurrentState(ZeroState.instance());
         setOffset(System.currentTimeMillis());
     }
